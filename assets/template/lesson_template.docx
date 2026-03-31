@@ -1,0 +1,21 @@
+Board: {board}                       Class: {class}
+Chapter: {chapter}                  Topic: {topic}
+
+Medium: {medium}                    Subject: {subject}
+Sub-Topic: {subTopic}
+
+------------------------------------------------------------
+
+LEARNING OUTCOMES:
+
+{#learning_outcomes}
+• {value}
+{/learning_outcomes}
+
+------------------------------------------------------------
+
+{#sections}
+{section_title}
+{section_content}
+
+{/sections}
