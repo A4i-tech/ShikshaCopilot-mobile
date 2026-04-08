@@ -418,31 +418,27 @@ class _LessonPlanGeneratedBodyState extends State<LessonPlanGeneratedBody>
         );
       }
 
+      final int documentsTabIndex = controller.hasChecklist ? 3 : 2;
+
       return CustomScrollView(
         controller: controller.scrollController,
         slivers: <Widget>[
-          /// Sliver 1: Chapter Details
           const SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(child: ChapterDetailsTooltipSection()),
           ),
-
-          /// Sliver 2: Main tab bar (dynamic)
           SliverPersistentHeader(
             pinned: true,
             delegate: _SliverMainTabBarDelegate(tabBar: _buildMainTabBar()),
           ),
 
-          /// Sliver 3: Dynamic content based on mainTabIndex + hasChecklist
           if (controller.mainTabIndex == 0)
             ..._buildLessonPlanSlivers(
               plainTextSections,
               fromPage,
               generationDetailsController,
-            ),
-
-          // Dynamic mapping for tabs 1-3
-          if (controller.mainTabIndex == 1)
+            )
+          else if (controller.mainTabIndex == 1)
             controller.hasChecklist
                 ? _buildLessonSummarySlivers(
                     fromPage,
@@ -452,22 +448,18 @@ class _LessonPlanGeneratedBodyState extends State<LessonPlanGeneratedBody>
                     fromPage,
                     generationDetailsController,
                     context,
-                  ),
-
-          if (controller.mainTabIndex == 2)
+                  )
+          else if (controller.mainTabIndex == 2)
             controller.hasChecklist
                 ? _buildVideosSlivers(
                     fromPage,
                     generationDetailsController,
                     context,
                   )
-                : _buildDocumentsSlivers(fromPage, context),
-
-          if (controller.mainTabIndex == (controller.hasChecklist ? 3 : 2))
-            _buildDocumentsSlivers(fromPage, context),
-
-          // Fallback empty state
-          if (controller.mainTabIndex >= (controller.hasChecklist ? 4 : 3))
+                : _buildDocumentsSlivers(fromPage, context)
+          else if (controller.mainTabIndex == 3 && controller.hasChecklist)
+            _buildDocumentsSlivers(fromPage, context)
+          else
             SliverFillRemaining(
               child: Center(child: Text('Tab not available')),
             ),
