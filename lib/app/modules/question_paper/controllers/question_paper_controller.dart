@@ -242,6 +242,18 @@ class QuestionPaperController extends GetxController
     }
   }
 
+  void clearChaptersSelections() {
+    configurationFormKey.currentState?.patchValue(<String, dynamic>{
+      'chapter': <String>[],
+      'subtopic': <String>[],
+    });
+    chapterList.clear();
+    selectedChapters.clear();
+    subTopicList.clear();
+    selectedSubTopics.clear();
+    calculateMarksDistribution();
+  }
+
   /// Calculates the distribution of marks across topics.
   void calculateMarksDistribution() {
     marksDistribution.clear();
@@ -392,6 +404,7 @@ class QuestionPaperController extends GetxController
   /// Parameters:
   /// - `value`: The newly selected board.
   void onBoardChanged(String? value) {
+    clearChaptersSelections();
     selectedBoard.value = value;
     selectedMedium.value = null;
     selectedClass.value = null;
@@ -420,6 +433,7 @@ class QuestionPaperController extends GetxController
   /// Parameters:
   /// - `value`: The newly selected medium.
   void onMediumChanged(String? value) {
+    clearChaptersSelections();
     selectedMedium.value = value;
     selectedClass.value = null;
     selectedSubject.value = null;
@@ -450,6 +464,7 @@ class QuestionPaperController extends GetxController
   /// Parameters:
   /// - `value`: The newly selected class.
   void onClassChanged(String? value) {
+    clearChaptersSelections();
     selectedClass.value = value;
     selectedSubject.value = null;
     subjects.clear();
@@ -479,6 +494,7 @@ class QuestionPaperController extends GetxController
   /// Parameters:
   /// - `value`: The newly selected subject.
   void onSubjectChanged(String? value) {
+    clearChaptersSelections();
     selectedSubject.value = value;
     getChapterBySem();
   }
